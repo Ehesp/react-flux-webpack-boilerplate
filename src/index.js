@@ -1,5 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import Router from 'react-router';
+import createBrowserHistory from 'history/lib/createBrowserHistory';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import { Flux } from './utils';
+import routes from './routes.js';
+
+// Create new alt instance
+const flux = new Flux();
+
+const routerProps = {
+	routes,
+	history: createBrowserHistory(),
+	createElement: (component, props) => {
+		return React.createElement(component, { ...props, flux })
+	}
+};
+
+ReactDOM.render(
+	React.createElement(Router, { ...routerProps }),
+	document.getElementById('root')
+);
