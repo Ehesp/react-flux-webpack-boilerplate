@@ -1,19 +1,22 @@
+import { Storage } from 'utils';
+
+@Storage
 class UsersStore {
 
 	constructor() {
 		this.bindActions(this.alt.getActions('users'));
-		this.users = JSON.parse(localStorage.getItem('users')) || [];
+		this.users = this.get('users') || [];
 	}
 
-	onAdd(user) {
+	onAdd = (user) => {
 		const users = [...this.users, user];
 		this.users = users;
-		localStorage.setItem('users', JSON.stringify(users));
+		this.set('users', users);
 	}
 
 	onClear() {
 		this.users = [];
-		localStorage.removeItem('users');
+		this.del('users');
 	}
 
 }
