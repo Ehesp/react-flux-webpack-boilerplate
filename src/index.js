@@ -13,7 +13,7 @@ const routerProps = {
 	routes,
 	history: createBrowserHistory(),
 	createElement: (component, props) => {
-		return React.createElement(component, { ...props, flux })
+		return React.createElement(component, { ...props, flux });
 	}
 };
 

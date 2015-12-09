@@ -3,18 +3,24 @@ import React, { Component, PropTypes } from 'react';
 class Root extends Component {
 
 	static propTypes = {
-		children: PropTypes.element
+		children: PropTypes.node,
+		flux: PropTypes.object.isRequired
 	};
 
-	constructor(props, context) {
-		super(props, context);
-	}
+	static childContextTypes = {
+		flux: PropTypes.object.isRequired
+	};
+
+	getChildContext = () => {
+		return {
+			flux: this.props.flux
+		};
+	};
 
 	render() {
-		const { children } = this.props;
 		return (
 			<div>
-				{ children }
+				{ this.props.children }
 			</div>
 		);
 	}

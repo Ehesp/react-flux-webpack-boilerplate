@@ -6,7 +6,7 @@ class UsersStore {
 	}
 
 	onAdd(user) {
-		const users = [ ...this.users, user ];
+		const users = [...this.users, user];
 		this.users = users;
 		localStorage.setItem('users', JSON.stringify(users));
 	}

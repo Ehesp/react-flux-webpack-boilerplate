@@ -5,11 +5,10 @@ class Flux extends Alt {
 
 	constructor(options = {}) {
 		super(options);
-		this.resolve = this.resolve.bind(this);
 		config.map(this.resolve);
 	}
 
-	resolve(name) {
+	resolve = (name) => {
 		this.addActions(name, require(`../actions/${name}`));
 		this.addStore(name, require(`../stores/${name}`));
 	}
