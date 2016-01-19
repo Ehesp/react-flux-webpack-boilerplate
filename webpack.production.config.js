@@ -1,18 +1,20 @@
-var Webpack = require('webpack');
-var path = require('path');
-var fs = require('fs');
-var nodeModulesPath = path.resolve(__dirname, 'node_modules');
-var buildPath = path.resolve(__dirname, 'build');
-var mainPath = path.resolve(__dirname, 'src', 'index.js');
+const Webpack = require('webpack');
+const path = require('path');
+const fs = require('fs');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const nodeModulesPath = path.resolve(__dirname, 'node_modules');
+const buildPath = path.resolve(__dirname, 'build');
+const mainPath = path.resolve(__dirname, 'src', 'index.js');
 
-var config = {
+const config = {
 
     // We change to normal source mapping
     devtool: 'source-map',
     entry: mainPath,
     output: {
         path: buildPath,
-        filename: '/dist/bundle-[hash].js'
+        filename: '/dist/bundle.js'
     },
     resolve: {
         root: path.resolve('./src'),
@@ -26,21 +28,28 @@ var config = {
         }, {
             test: /\.(jpe?g|png|gif|svg|ico)$/i,
             loaders: [
-                'file?hash=sha512&digest=hex&name=dist/[hash].[ext]',
+                'file?hash=sha512&digest=hex&name=dist/images/[name]-[hash].[ext]',
                 'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
             ]
+        }, {
+            test: /\.css$/,
+            loader: ExtractTextPlugin.extract("style-loader", "css-loader")
         }]
     },
     plugins: [
-        function() {
-            this.plugin("done", function(stats) {
+        new ExtractTextPlugin('/dist/styles.css', {
+            allChunks: true
+        }),
+        new HtmlWebpackPlugin({
+            templateContent: function () {
                 var htmlTemplate = path.join(__dirname, 'src', 'index.html');
-                var htmlPathOut = path.join(__dirname, 'build', 'index.html');
                 var template = fs.readFileSync(htmlTemplate, 'utf8');
-                var html = template.replace('/build/bundle.js', `/dist/bundle-${stats.hash}.js`);
-                fs.writeFile(htmlPathOut, html);
-            });
-        }
+                return template.replace('<script src="/build/bundle.js"></script>', '');
+            },
+            hash: true,
+            filename: 'index.html',
+            inject: 'body' // Inject all scripts into the body
+        })
     ]
 };
 

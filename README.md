@@ -36,7 +36,7 @@ The `GenerateRoute` function takes arguments, as an object:
 - component (component): A ReactJS component.
 - children (array): An array of `GenerateRoute` functions, but the routes will be generated as sub-routes of the parent.
 
-```
+```javascript
 { GenerateRoute({
     paths: ['/profile', '/account'],
     component: require('./pages/account/Index'),
@@ -72,7 +72,7 @@ Any images should be placed within the `src/assets/images` directory, and requir
 
 There's a handy `<Image />` component within `src/components/Image` which handles this for you, used like so:
 
-```
+```javascript
 import { Image } from 'components';
 
 ...
@@ -80,7 +80,11 @@ import { Image } from 'components';
 <Image file="react-logo.png" alt="React Logo" style={{ width: 100 }} />
 ```
 
-CSS is not handled by default, you'll need a Webpack CSS loader to sort this - [see docs](https://webpack.github.io/docs/stylesheets.html).
+Any CSS is loaded in using a `css-loader`. A good place to include it in your project would be in the `src/index.js` file, for example:
+
+```javascript
+import 'bootstrap/css/bootstrap.css';
+```
 
 ### Development vs Production
 
@@ -98,3 +102,7 @@ In production, Webpack bundles your files into a single file, compressed and wit
 #### Changing ports
 
 Simply change the numbers in `server.js`, or with production add `PORT=1234` as an environment variable.
+
+#### LESS/SASS
+
+These aren't handled by default, you'll need to configure Webpack yourselves using a loader, e.g. [less-loader](https://github.com/webpack/less-loader).
