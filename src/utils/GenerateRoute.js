@@ -5,6 +5,8 @@ import { Route, IndexRoute } from 'react-router';
  * Helper to generate a new react-router route, which supports multiple paths for a single
  * route
  *
+ * See: https://github.com/rackt/react-router/blob/latest/docs/Introduction.md#with-react-router
+ *
  * @param index
  * @param key
  * @param paths
@@ -15,7 +17,7 @@ import { Route, IndexRoute } from 'react-router';
 export default function ({ index, key, paths, component, children }) {
 	if (index) {
 		if (!key) {
-			console.warm('IndexRoute requires a custom key param');
+			console.warn('IndexRoute requires a custom key param');
 		}
 		const props = {
 			component,

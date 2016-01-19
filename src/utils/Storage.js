@@ -1,3 +1,8 @@
+/**
+ * A decorator to assist with local storage
+ * @param Class
+ */
+
 export default function (Class) {
     Object.defineProperties(Class.prototype, {
 

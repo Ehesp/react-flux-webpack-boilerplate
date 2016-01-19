@@ -1,26 +1,31 @@
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
+
+import { Image } from 'components';
+import UserActions from 'actions/UserActions';
+import UserStore from 'stores/UserStore';
 
 class Home extends Component {
 
-    static contextTypes = {
-        flux: React.PropTypes.object.isRequired
-    }
-
-    constructor(props, context) {
-        super(props, context);
+    constructor() {
+        super();
         this.state = {
-            users: context.flux.getStore('users').getState().users,
+            users: UserStore.getState().users,
             input: ''
         };
     }
 
     componentDidMount() {
-        this.context.flux.getStore('users').listen(this.handleUsersStore);
+        UserStore.listen(this.handleUserStore);
     }
 
-    handleUsersStore = (state) => {
+    componentWillUnmount() {
+        UserStore.unlisten(this.handleUserStore);
+    }
+
+    handleUserStore = (store) => {
         this.setState({
-            users: state.users
+            users: store.users
         });
     };
 
@@ -28,21 +33,24 @@ class Home extends Component {
         this.setState({
             input: e.target.value
         });
-    }
+    };
 
     addUser = () => {
-        this.context.flux.getActions('users').add(this.state.input);
+        UserActions.add(this.state.input);
         this.setState({
             input: ''
         });
-    }
+    };
 
     render() {
         const { users, input } = this.state;
         return (
             <div>
-                <h1>Homepage.</h1>
+                <h1><Image file="react-logo.png" alt="Logo" style={{ width: 50 }} /> Homepage</h1>
                 <hr />
+                Go to my <Link to='account'>Account</Link>
+                <br />
+                <br />
                 <input type='text' value={ input } onChange={ this.handleInputChange } />
                 <button onClick={ this.addUser }>Add User</button>
                 <h3>List of users:</h3>

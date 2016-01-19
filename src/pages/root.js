@@ -2,28 +2,23 @@ import React, { Component, PropTypes } from 'react';
 
 class Root extends Component {
 
-	static propTypes = {
-		children: PropTypes.node,
-		flux: PropTypes.object.isRequired
-	};
+    static propTypes = {
+        children: PropTypes.node.isRequired
+    };
 
-	static childContextTypes = {
-		flux: PropTypes.object.isRequired
-	};
+    /*
+        This component wraps your entire application.
 
-	getChildContext = () => {
-		return {
-			flux: this.props.flux
-		};
-	};
+        You can pass in props, context etc here.
+     */
 
-	render() {
-		return (
-			<div>
-				{ this.props.children }
-			</div>
-		);
-	}
+    render() {
+        return (
+            <div>
+                { this.props.children }
+            </div>
+        );
+    }
 }
 
 export default Root;

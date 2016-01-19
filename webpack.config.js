@@ -1,17 +1,18 @@
 const path = require('path');
 const webpack = require('webpack');
+const buildPath = path.resolve(__dirname, 'public', 'build');
 
 module.exports = {
     devtool: 'eval',
     entry: [
-        'webpack-dev-server/client?http://localhost:3000',
+        'webpack-dev-server/client?http://localhost:8080',
         'webpack/hot/only-dev-server',
         './src/index'
     ],
     output: {
-        path: path.join(__dirname, 'dist'),
+        path: buildPath,
         filename: 'bundle.js',
-        publicPath: '/static/'
+        publicPath: '/build/'
     },
     resolve: {
         root: path.resolve('./src'),
