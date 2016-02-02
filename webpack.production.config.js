@@ -49,6 +49,11 @@ const config = {
             hash: true,
             filename: 'index.html',
             inject: 'body' // Inject all scripts into the body
+        }),
+        new webpack.DefinePlugin({
+            'process.env': {
+                'NODE_ENV': '"production"'
+            }
         })
     ]
 };
