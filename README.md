@@ -106,3 +106,14 @@ Simply change the numbers in `server.js`, or with production add `PORT=1234` as 
 #### LESS/SASS
 
 These aren't handled by default, you'll need to configure Webpack yourselves using a loader, e.g. [less-loader](https://github.com/webpack/less-loader).
+
+#### Environment Detection
+
+If you need to detect the working environment within your code, simply use the process as you would in a Node application:
+
+```
+if (process.env.NODE_ENV === 'development')
+    // Developing
+if (process.env.NODE_ENV === 'production')
+    // Production build
+```
