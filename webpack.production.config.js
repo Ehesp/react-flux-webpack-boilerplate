@@ -7,6 +7,10 @@ const nodeModulesPath = path.resolve(__dirname, 'node_modules');
 const buildPath = path.resolve(__dirname, 'build');
 const mainPath = path.resolve(__dirname, 'src', 'index.js');
 
+const pathToReact = path.resolve(nodeModulesPath, 'react/dist/react.min.js');
+const pathToReactDom = path.resolve(nodeModulesPath, 'react-dom/dist/react-dom.min.js');
+const pathToReactObj = path.resolve(nodeModulesPath, 'react/lib/Object.assign');
+
 const config = {
 
     // We change to normal source mapping
@@ -18,7 +22,12 @@ const config = {
     },
     resolve: {
         root: path.resolve('./src'),
-        extensions: ['', '.js']
+        extensions: ['', '.js'],
+        alias: {
+            'react/lib/Object.assign': pathToReactObj,
+            'react': pathToReact,
+            'react-dom': pathToReactDom
+        },
     },
     module: {
         loaders: [{
@@ -34,7 +43,8 @@ const config = {
         }, {
             test: /\.css$/,
             loader: ExtractTextPlugin.extract("style-loader", "css-loader")
-        }]
+        }],
+        noParse: [pathToReact]
     },
     plugins: [
         new ExtractTextPlugin('/dist/styles.css', {
