@@ -96,6 +96,8 @@ Production: `npm run prod`.
 
 In production, Webpack bundles your files into a single file, compressed and without hot-reloading. The contents of which are within `build`. The bundle name is hashed on each build (if something has changed),
  to stop browsers caching the bundle even if it's been changed. This also applies for your images.
+ 
+The bundled, minified production ReactJS script will also be used, which does not produce any errors.
 
 ## Misc
 
