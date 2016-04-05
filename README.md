@@ -1,6 +1,6 @@
 # Webpack + ReactJS
 
-This repository is a basic example of a ReactJS application, built with [Webpack](https://webpack.github.io) and [ReactJS](https://facebook.github.io/react/index.html).  It's aim is to be simple & highly configurable, with no crazy opinionated structure. This is not an isomorphic structure, it works purely on the client side with a simple [Express](http://expressjs.com) based server running on the backend.
+This repository is a basic example of a ReactJS application, built with [Webpack](https://webpack.github.io) and [ReactJS](https://facebook.github.io/react/index.html).  It's aim is to be simple & highly configurable, with no crazy opinionated structure. This is not an isomorphic structure, it works purely on the client side with a simple [Express](http://expressjs.com) based server running on the backend (for development, or production if needed).
 
 ## Setup
 
